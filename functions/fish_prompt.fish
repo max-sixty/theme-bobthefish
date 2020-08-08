@@ -859,6 +859,7 @@ function __bobthefish_virtualenv_python_version -S -d 'Get current Python versio
     end
 end
 
+# https://github.com/oh-my-fish/theme-bobthefish/issues/174
 function __bobthefish_prompt_virtualfish -S -d "Display current Python virtual environment (only for virtualfish, virtualenv's activate.fish changes prompt by itself) or conda environment."
     [ "$theme_display_virtualenv" = 'no' -o -z "$VIRTUAL_ENV" -a -z "$CONDA_DEFAULT_ENV" ]
     and return
@@ -870,12 +871,15 @@ function __bobthefish_prompt_virtualfish -S -d "Display current Python virtual e
         echo -ns $virtualenv_glyph $version_glyph ' '
     end
 
+  # https://github.com/oh-my-fish/theme-bobthefish/issues/174#issuecomment-433793744
+  [ "$theme_display_virtualenv" = 'glyph' -o -z "$VIRTUAL_ENV" -a -z "$CONDA_DEFAULT_ENV" ]; and return
     if [ "$VIRTUAL_ENV" ]
         echo -ns (basename "$VIRTUAL_ENV") ' '
     else if [ "$CONDA_DEFAULT_ENV" ]
         echo -ns (basename "$CONDA_DEFAULT_ENV") ' '
     end
 end
+
 
 function __bobthefish_prompt_virtualgo -S -d 'Display current Go virtual environment'
     [ "$theme_display_virtualgo" = 'no' -o -z "$VIRTUALGO" ]
